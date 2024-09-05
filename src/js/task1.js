@@ -1,50 +1,8 @@
-import { alert, success, error } from '@pnotify/core';
-import '@pnotify/core/dist/PNotify.css';
-import '@pnotify/core/dist/BrightTheme.css';
+import book from '../book.json';
 
-
-const key = document.getElementById('key');
-const button = document.getElementById('newGame')
-
-const possibleKeys = ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'];
-let currentKeyIndex = 0;
-
-key.textContent = possibleKeys[currentKeyIndex];
-
-document.addEventListener('keypress', (e) => {
-    e.preventDefault();
-})
-
-button.addEventListener('click', newGame);
-
-function newGame() {
-    currentKeyIndex = 0;
-    key.textContent = possibleKeys[currentKeyIndex];
-    alert({
-        text: 'start the game',
-        delay: 666,
-    })
+try {
+    const bookObject = JSON.stringify(book);
+    console.log('is valid', bookObject);
+} catch (error) {
+    console.log('invalid', error);
 }
-
-document.addEventListener('keydown', (e) => {
-    if (e.key === possibleKeys[currentKeyIndex]) {
-        success({
-            text: 'you  guessed',
-            delay: 666,
-        })
-        currentKeyIndex += 1;
-        if (currentKeyIndex <= possibleKeys.length) {
-            key.textContent = possibleKeys[currentKeyIndex];
-        } else {
-            alert({
-                text: 'you won',
-                delay: 666,
-            })
-        }
-    } else {
-        error({
-            text: 'you failed',
-            delay: 666,
-        })
-    }
-})
